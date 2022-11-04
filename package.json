@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "author": "Jayesh Kugsiya",
-  "scripts": {},
+  "scripts": {
+    "start": "cd packages/backend && npm start"
+  },
   "keywords": [],
   "license": "ISC",
   "workspaces": [
