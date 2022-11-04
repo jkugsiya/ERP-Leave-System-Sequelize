@@ -1,0 +1,12 @@
+{
+  "name": "@erp-leave/monorepo",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Jayesh Kugsiya",
+  "scripts": {},
+  "keywords": [],
+  "license": "ISC",
+  "workspaces": [
+    "packages/*"
+  ]
+}
