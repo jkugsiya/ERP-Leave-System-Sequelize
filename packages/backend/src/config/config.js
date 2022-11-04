@@ -22,10 +22,10 @@ module.exports = {
     dialect: 'mysql'
   },
   production: {
-    username: 'root',
-    password: null,
-    database: 'database_production',
-    host: '127.0.0.1',
-    dialect: 'mysql'
+    username: DB_USER || 'root',
+    password: DB_PASSWORD || null,
+    database: DB_NAME || 'database_development',
+    host: DB_HOST || '127.0.0.1',
+    dialect: DB_DIALECT || 'postgres'
   }
 }
