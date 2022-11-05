@@ -6,5 +6,6 @@ module.exports = {
   DB_HOST: process.env.DB_HOST,
   DB_DIALECT: process.env.DB_DIALECT,
   DB_PORT: process.env.DB_PORT,
-  PORT: process.env.PORT
+  PORT: process.env.PORT,
+  TOKEN_SECRET: process.env.TOKEN_SECRET
 }
