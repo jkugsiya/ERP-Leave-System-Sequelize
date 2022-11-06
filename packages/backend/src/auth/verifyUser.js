@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 const { TOKEN_SECRET } = require('../../config')
 
 module.exports = {
-  verifyUser(req, res, next) {
+  verifyUser: (req, res, next) => {
     if (req.originalUrl === '/api/user/login') return next()
 
     const token = req.headers['authorization']
@@ -14,5 +14,9 @@ module.exports = {
       req.user = user
       next()
     })
+  },
+  verifyAdmin: (req, res, next) => {
+    if (req.user.role !== 'Admin') return res.sendStatus(403)
+    next()
   }
 }

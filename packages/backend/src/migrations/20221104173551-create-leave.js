@@ -13,17 +13,18 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      leaveFromDate: {
+      startDate: {
         type: Sequelize.DATE,
         allowNull: false
       },
-      leaveToDate: {
+      endDate: {
         type: Sequelize.DATE,
         allowNull: false
       },
       status: {
         type: Sequelize.ENUM('Pending', 'Approved', 'Rejected'),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'Pending'
       },
       leaveType: {
         type: Sequelize.ENUM('Half Day', 'Full Day', 'Multiple Days'),

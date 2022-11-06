@@ -5,7 +5,6 @@ const { TOKEN_SECRET } = require('../../../config')
 
 module.exports = {
   getAllUsers: async (req, res) => {
-    if (!req.user || req.user.role !== 'Admin') return res.sendStatus(403)
     const users = await models.User.findAll({
       attributes: { exclude: ['password'] }
     })
@@ -53,5 +52,14 @@ module.exports = {
     )
     const { password: _, ...userWithoutPassword } = user.dataValues
     return res.status(200).json({ ...userWithoutPassword, token })
+  },
+  deleteUser: async (req, res) => {
+    const { id } = req.params
+    const user = await models.User.findOne({ where: { id } })
+    if (!user) {
+      return res.status(400).json({ message: 'User not found' })
+    }
+    await models.User.destroy({ where: { id } })
+    return res.sendStatus(204)
   }
 }
