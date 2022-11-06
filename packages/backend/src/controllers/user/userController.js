@@ -2,10 +2,16 @@ const models = require('../../models')
 const { hash, compare } = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const { TOKEN_SECRET } = require('../../../config')
+const { Op } = require('sequelize')
 
 module.exports = {
   getAllUsers: async (req, res) => {
     const users = await models.User.findAll({
+      where: {
+        id: {
+          [Op.ne]: req.user.id
+        }
+      },
       attributes: { exclude: ['password'] }
     })
     return res.status(200).json(users)
