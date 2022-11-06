@@ -14,7 +14,6 @@ module.exports = {
         role: 'Admin',
         position: 'Admin',
         password: await hash('admin', 10),
-        token: null,
         createdAt: new Date(),
         updatedAt: new Date()
       }
