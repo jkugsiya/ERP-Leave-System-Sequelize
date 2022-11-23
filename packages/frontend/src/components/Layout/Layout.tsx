@@ -1,7 +1,7 @@
 import { ChevronLeft } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { Divider } from '@mui/material'
+import { Divider, Link as MLink, Skeleton } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
@@ -24,9 +24,9 @@ function Copyright(props: any) {
       {...props}
     >
       {'Copyright © '}
-      <a color="inherit" href="https://mui.com/">
+      <MLink color="inherit" href="https://mui.com/">
         Your Website
-      </a>{' '}
+      </MLink>{' '}
       {new Date().getFullYear()}
       {'.'}
     </Typography>
@@ -89,11 +89,12 @@ const mdTheme = createTheme({
   }
 })
 
-export const Layout: FC<{ children: React.ReactNode; title: string }> = ({
-  children,
-  title
-}) => {
-  const [open, setOpen] = useState(true)
+export const Layout: FC<{
+  title: string
+  children?: React.ReactNode
+  loading?: boolean
+}> = ({ children, title, loading }) => {
+  const [open, setOpen] = useState(false)
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -163,7 +164,16 @@ export const Layout: FC<{ children: React.ReactNode; title: string }> = ({
         >
           <Toolbar />
           <Container maxWidth="xl" sx={{ mt: 4, mb: 4 }}>
-            {children}
+            {loading ? (
+              <>
+                <Skeleton animation="wave" />
+                <Skeleton animation="wave" width={'80%'} />
+                <Skeleton animation="wave" width={'70%'} />
+                <Skeleton animation="wave" width={'50%'} />
+              </>
+            ) : (
+              children
+            )}
           </Container>
           <Copyright sx={{ pt: 4 }} />
         </Box>

@@ -23,6 +23,7 @@
     "@mui/material": "^5.10.15",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "react-query": "^3.39.2",
     "@mui/icons-material": "^5.10.15"
   },
   "devDependencies": {
@@ -32,20 +33,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "react-app"
     ]
   }
 }
