@@ -1,4 +1,5 @@
 import { FC } from 'react'
+import { Layout } from '../components/Layout/Layout'
 export const Dashboard: FC = () => {
-  return <div>Dashboard</div>
+  return <Layout title={'Dashboard'}>Dashboard</Layout>
 }
