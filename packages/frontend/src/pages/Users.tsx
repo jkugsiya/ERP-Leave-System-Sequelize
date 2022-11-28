@@ -17,7 +17,7 @@ export const Users: FC = () => {
   const { data: users, isLoading: getUsersLoading } = useQuery(
     'users',
     async () => {
-      const data = await fetch(API_ENDPOINT + '/api/user', {
+      const data = await fetch(API_ENDPOINT + '/user', {
         headers: {
           Authorization: appState.accessToken
         }
