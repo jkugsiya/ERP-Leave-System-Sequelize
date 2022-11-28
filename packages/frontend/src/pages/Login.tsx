@@ -11,9 +11,58 @@ import Link from '@mui/material/Link'
 
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useMutation } from 'react-query'
+import { useNavigate } from 'react-router-dom'
+import { API_ENDPOINT } from '../config'
+import { useAppState } from '../state/AppState'
 
 export const Login: FC = () => {
+  //? States
+  const { appState, setAppState } = useAppState()
+  const navigate = useNavigate()
+
+  const {
+    mutateAsync: loginUser,
+    isLoading: loginUserLoading,
+    data: loginData
+  } = useMutation(
+    'login',
+    async (data: { email: string; password: string }) => {
+      const loginData = await fetch(API_ENDPOINT + '/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+      const loginDataJson = await loginData.json()
+      if (loginDataJson && loginDataJson.token) {
+        const obj = {
+          signedIn: true,
+          userId: loginDataJson.id,
+          role: loginDataJson.role,
+          email: loginDataJson.email,
+          name: loginDataJson.name,
+          accessToken: loginDataJson.token,
+          issuedAt: loginDataJson.iat,
+          expiresAt: loginDataJson.exp
+        }
+        localStorage.setItem('erp_state', JSON.stringify(obj))
+        setAppState(obj)
+        navigate('/')
+      }
+      return loginDataJson
+    }
+  )
+
+  //? UseEffects
+  useEffect(() => {
+    if (appState.signedIn) {
+      navigate('/')
+    }
+  }, [appState])
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -33,12 +82,11 @@ export const Login: FC = () => {
         </Typography>
         <Box
           component="form"
-          onSubmit={e => {
+          onSubmit={async e => {
             e.preventDefault()
-            const data = new FormData(e.currentTarget)
-            console.log({
-              email: data.get('email'),
-              password: data.get('password')
+            await loginUser({
+              email: e.currentTarget.email.value,
+              password: e.currentTarget.password.value
             })
           }}
           noValidate
@@ -69,6 +117,7 @@ export const Login: FC = () => {
             label="Remember me"
           />
           <Button
+            disabled={loginUserLoading}
             type="submit"
             fullWidth
             variant="contained"

@@ -7,5 +7,8 @@ module.exports = {
   DB_DIALECT: process.env.DB_DIALECT,
   DB_PORT: process.env.DB_PORT,
   PORT: process.env.PORT,
-  TOKEN_SECRET: process.env.TOKEN_SECRET
+  TOKEN_SECRET: process.env.TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRE_TIME: process.env.ACCESS_TOKEN_EXPIRE_TIME
+    ? parseInt(process.env.ACCESS_TOKEN_EXPIRE_TIME)
+    : 3600
 }

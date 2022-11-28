@@ -1,7 +1,7 @@
 const models = require('../../models')
 const { hash, compare } = require('bcrypt')
 const jwt = require('jsonwebtoken')
-const { TOKEN_SECRET } = require('../../../config')
+const { TOKEN_SECRET, ACCESS_TOKEN_EXPIRE_TIME } = require('../../../config')
 const { Op } = require('sequelize')
 
 module.exports = {
@@ -49,15 +49,14 @@ module.exports = {
     if (!isPasswordCorrect) {
       return res.status(400).json({ message: 'Incorrect password' })
     }
+    const iat = Math.floor(Date.now() / 1000)
+    const exp = Math.floor(Date.now() / 1000) + ACCESS_TOKEN_EXPIRE_TIME
     const token = jwt.sign(
-      { id: user.id, email: user.email, role: user.role },
-      TOKEN_SECRET,
-      {
-        expiresIn: '1d'
-      }
+      { id: user.id, email: user.email, role: user.role, iat, exp },
+      TOKEN_SECRET
     )
     const { password: _, ...userWithoutPassword } = user.dataValues
-    return res.status(200).json({ ...userWithoutPassword, token })
+    return res.status(200).json({ ...userWithoutPassword, token, iat, exp })
   },
   deleteUser: async (req, res) => {
     const { id } = req.params

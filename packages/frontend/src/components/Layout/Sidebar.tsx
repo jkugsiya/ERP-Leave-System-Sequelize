@@ -1,4 +1,9 @@
-import { BarChart, Dashboard, People } from '@mui/icons-material'
+import {
+  AddCircleOutline,
+  BarChart,
+  Dashboard,
+  People
+} from '@mui/icons-material'
 import {
   Divider,
   List,
@@ -31,6 +36,12 @@ export const Sidebar: FC = () => {
         <ListItemText primary="My Leaves" />
       </ListItemButton>
       <Divider sx={{ my: 1 }} />
+      <ListItemButton>
+        <ListItemIcon>
+          <AddCircleOutline />
+        </ListItemIcon>
+        <ListItemText primary="Create Leave" />
+      </ListItemButton>
     </List>
   )
 }

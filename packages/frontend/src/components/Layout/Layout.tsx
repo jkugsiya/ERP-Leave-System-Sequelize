@@ -1,7 +1,7 @@
 import { ChevronLeft } from '@mui/icons-material'
 import MenuIcon from '@mui/icons-material/Menu'
 import NotificationsIcon from '@mui/icons-material/Notifications'
-import { Divider, Link as MLink, Skeleton } from '@mui/material'
+import { Avatar, Divider, Link as MLink, Skeleton } from '@mui/material'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Badge from '@mui/material/Badge'
 import Box from '@mui/material/Box'
@@ -13,6 +13,7 @@ import { createTheme, styled, ThemeProvider } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { FC, useState } from 'react'
+import { useAppState } from '../../state/AppState'
 import { Sidebar } from './Sidebar'
 
 function Copyright(props: any) {
@@ -95,6 +96,7 @@ export const Layout: FC<{
   loading?: boolean
 }> = ({ children, title, loading }) => {
   const [open, setOpen] = useState(false)
+  const { appState } = useAppState()
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -131,6 +133,9 @@ export const Layout: FC<{
               <Badge badgeContent={4} color="secondary">
                 <NotificationsIcon />
               </Badge>
+            </IconButton>
+            <IconButton>
+              <Avatar sx={{ width: 32, height: 32 }}>{appState.name[0]}</Avatar>
             </IconButton>
           </Toolbar>
         </AppBar>

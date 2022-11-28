@@ -4,7 +4,9 @@
   "description": "",
   "author": "Jayesh Kugsiya",
   "scripts": {
-    "start": "cd packages/backend && npm start"
+    "start": "cd packages/backend && npm start",
+    "app": "cd packages/frontend && npm run dev",
+    "server": "cd packages/backend && npm run dev"
   },
   "keywords": [],
   "license": "ISC",
