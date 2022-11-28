@@ -9,6 +9,7 @@ import {
 import { FC } from 'react'
 import { useQuery } from 'react-query'
 import { Layout } from '../components/Layout/Layout'
+import { API_ENDPOINT } from '../config'
 import { useAppState } from '../state/AppState'
 export const Users: FC = () => {
   const { appState } = useAppState()
@@ -16,7 +17,7 @@ export const Users: FC = () => {
   const { data: users, isLoading: getUsersLoading } = useQuery(
     'users',
     async () => {
-      const data = await fetch('http://localhost:4000/api/user', {
+      const data = await fetch(API_ENDPOINT + '/api/user', {
         headers: {
           Authorization: appState.accessToken
         }
